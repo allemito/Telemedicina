@@ -110,7 +110,7 @@ namespace scrum_Grupo2_website
             client.From = new MailAddress("scrumgrupo2@gmail.com");
             client.To.Add(email);
             client.Subject = "Confirmação Registo";
-            client.Body = "Estimado Sr(a). " + nome + "\nObrigado pelo seu registo, enviamos a sua password: " + password + "\nPor favor na próxima sessão proceda à sua alteração.\n\nCom os melhores cumprimentos Equipa Scrum2";
+            client.Body = "Estimado Sr(a). " + nome + "\nObrigado pelo seu registo, enviamos a sua password: " + password + "\nPor favor na próxima sessão proceda à sua alteração.\n\nCom os melhores cumprimentos Grupo Telemedicina";
             smtp.Port = 587;
             smtp.UseDefaultCredentials = false;
             smtp.Credentials = new NetworkCredential("scrumgrupo2@gmail.com", "grupo2scrum123");

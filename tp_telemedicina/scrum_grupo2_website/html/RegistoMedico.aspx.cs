@@ -13,7 +13,7 @@ namespace scrum_Grupo2_website.html
     public partial class RegistoMedico1 : System.Web.UI.Page
     {
         // Ligação base dados oracle
-        OracleConnection conexao = new OracleConnection("DATA SOURCE=25.15.145.193:1521/xe;PASSWORD=scrumdatabase;USER ID=SCRUM_GRUPO2_DATABASE");
+        OracleConnection conexao = new OracleConnection("DATA SOURCE=25.15.145.193:1521/xe;PASSWORD=telemedicina;USER ID=Telemedicina_DataBase");
         OracleCommand comando = new OracleCommand();
         OracleDataReader dataReader;
 
