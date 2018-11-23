@@ -100,6 +100,7 @@
     <Content Include="css\StyleSheet.css" />
     <Content Include="html\Administrador.aspx" />
     <Content Include="html\Contactos.aspx" />
+    <Content Include="html\Doente.aspx" />
     <Content Include="html\Faq.aspx" />
     <Content Include="html\Login.aspx" />
     <Content Include="html\RegistoMedico.aspx" />
@@ -138,6 +139,13 @@
     </Compile>
     <Compile Include="html\Contactos.aspx.designer.cs">
       <DependentUpon>Contactos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="html\Doente.aspx.cs">
+      <DependentUpon>Doente.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="html\Doente.aspx.designer.cs">
+      <DependentUpon>Doente.aspx</DependentUpon>
     </Compile>
     <Compile Include="html\Faq.aspx.cs">
       <DependentUpon>Faq.aspx</DependentUpon>
