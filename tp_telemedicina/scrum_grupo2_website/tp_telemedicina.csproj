@@ -97,6 +97,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="css\leftbar.css" />
+    <Content Include="css\map.css" />
     <Content Include="css\StyleSheet.css" />
     <Content Include="html\Administrador.aspx" />
     <Content Include="html\Contactos.aspx" />
