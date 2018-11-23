@@ -97,6 +97,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="css\leftbar.css" />
+    <Content Include="css\map.css" />
     <Content Include="css\StyleSheet.css" />
     <Content Include="html\Administrador.aspx" />
     <Content Include="html\Contactos.aspx" />
@@ -105,6 +106,7 @@
     <Content Include="html\Login.aspx" />
     <Content Include="html\RegistoMedico.aspx" />
     <Content Include="html\RegistoUtente.aspx" />
+    <Content Include="image\diabetes.jpg" />
     <Content Include="image\heart-health-main.jpg" />
     <Content Include="image\saude.jpg" />
     <Content Include="html\Medico.aspx" />
