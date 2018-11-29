@@ -17,7 +17,7 @@
             <asp:Button class="button" ID="btn_contactos" runat="server" Text="Contactos" PostBackUrl="~/html/Contactos.aspx" UseSubmitBehavior="False" />
         </ul>
         <div style="height: 590px; margin: 0 auto; width: 520px;">
-            <img src="../image/heart-health-main.jpg" class="background-image" />
+            <img src="../image/diabetes.jpg" class="background-image" />
 
             <h1>Registo Médico</h1>
 

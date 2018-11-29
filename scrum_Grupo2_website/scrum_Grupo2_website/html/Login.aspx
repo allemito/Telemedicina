@@ -16,7 +16,7 @@
             <asp:Button class="button" ID="btn_faq" runat="server" Text="F.A.Q" PostBackUrl="~/html/Faq.aspx" UseSubmitBehavior="False" />
             <asp:Button class="button" ID="btn_contactos" runat="server" Text="Contactos" PostBackUrl="~/html/Contactos.aspx" UseSubmitBehavior="False" />
         </ul>
-        <img src="../image/heart-health-main.jpg" class="background-image" />   
+        <img src="../image/diabetes.jpg" class="background-image" />   
         <div style="height: 336px; width: 528px; margin:auto;">
             <h1>Login</h1>
             <label for="username"><b>Username</b></label>
