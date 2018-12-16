@@ -31,20 +31,39 @@
                 <label><b>Nome:</b></label>
                 <asp:TextBox type="text" ID="TextBox_Nome" runat="server" placeholder="Nome" name="nome"></asp:TextBox>
                 <label><b>Alertas:</b></label>
-                <p><asp:Label ID="label_alertas" runat="server" ForeColor="Red"></asp:Label></p>
-                <asp:Chart ID="ChartGlicemia" runat="server" Width="1042px" Palette="SeaGreen">
+                <asp:Label ID="label_alertas" runat="server" ForeColor="Red"></asp:Label><p></p>
+                <asp:Chart ID="ChartGlicemia" runat="server" Width="1042px" Palette="Berry">
                     <Titles><asp:Title Text="Niveis de Glicemia"></asp:Title></Titles>
                     <Series>
-                        <asp:Series Name="Glicemia" ChartType="Line"></asp:Series>
+                        <asp:Series Name="Glicemia" ChartType="Line" YValuesPerPoint="6"></asp:Series>
                     </Series>
                     <ChartAreas>
                         <asp:ChartArea Name="ChartArea1">
                             <AxisX Title="Dia da Semana"></AxisX>
                             <AxisY Title="Valores de Glicemia">
-                        </AxisY></asp:ChartArea>
-                        
+                        </AxisY></asp:ChartArea>                       
                     </ChartAreas>
                 </asp:Chart>
+                <p><asp:Button class="button" ID="ButtonVer_Total" runat="server" Text="Informações Glicêmicas" Width="217px" OnClick="ButtonVer_Total_Click" /></p>
+            </asp:Panel>
+            <asp:Panel ID ="panelDados" runat ="server">
+                <asp:Button class="button" ID="ButtonParaTras" runat="server" Text="Voltar Atras" Width="217px" OnClick="ButtonParaTras_Click" />
+                <h1>Informação Glicêmica</h1>
+                <label><b>Nome:</b></label>
+                <asp:TextBox type="text" ID="TextBoxnome" runat="server" placeholder="Nome" name="nome"></asp:TextBox>
+                <p><asp:GridView ID="GridViewGlicemia" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None">
+                    <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
+                    <EditRowStyle BackColor="#999999" />
+                    <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
+                    <HeaderStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
+                    <PagerStyle BackColor="#284775" ForeColor="White" HorizontalAlign="Center" />
+                    <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
+                    <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
+                    <SortedAscendingCellStyle BackColor="#E9E7E2" />
+                    <SortedAscendingHeaderStyle BackColor="#506C8C" />
+                    <SortedDescendingCellStyle BackColor="#FFFDF8" />
+                    <SortedDescendingHeaderStyle BackColor="#6F8DAE" />
+                    </asp:GridView></p> 
             </asp:Panel>
         </div>
     </form>

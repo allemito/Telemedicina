@@ -107,13 +107,45 @@ namespace Telemedicina_Website
         {
             var client = new MailMessage();
             var smtp = new SmtpClient("smtp.gmail.com");
-            client.From = new MailAddress("scrumgrupo2@gmail.com");
+            client.From = new MailAddress("telemedicina.grupo3@gmail.com");
             client.To.Add(email);
             client.Subject = "Confirmação Registo";
             client.Body = "Estimado Sr(a). " + nome + "\nObrigado pelo seu registo, enviamos a sua password: " + password + "\nPor favor na próxima sessão proceda à sua alteração.\n\nCom os melhores cumprimentos Equipa Telemedicina";
             smtp.Port = 587;
             smtp.UseDefaultCredentials = false;
-            smtp.Credentials = new NetworkCredential("scrumgrupo2@gmail.com", "grupo2scrum123");
+            smtp.Credentials = new NetworkCredential("telemedicina.grupo3@gmail.com", "telegrupo3");
+            smtp.EnableSsl = true;
+
+            smtp.Send(client);
+        }
+
+        public void EnviarEmail_alerta(string email, string nome, string valor_glicemia)
+        {
+            var client = new MailMessage();
+            var smtp = new SmtpClient("smtp.gmail.com");
+            client.From = new MailAddress("telemedicina.grupo3@gmail.com");
+            client.To.Add(email);
+            client.Subject = "Alerta Glicemia";
+            client.Body = "Estimado Sr(a). " + nome + ",\n\nO seu valor glicêmio encontra-se fora do intervalo desejado.\nValor de glicemia: "+ valor_glicemia+".\n\nCom os melhores cumprimentos Equipa Telemedicina";
+            smtp.Port = 587;
+            smtp.UseDefaultCredentials = false;
+            smtp.Credentials = new NetworkCredential("telemedicina.grupo3@gmail.com", "telegrupo3");
+            smtp.EnableSsl = true;
+
+            smtp.Send(client);
+        }
+
+        public void EnviarEmail_AlertaAlteracao(string email, string nome, string valor_glicemia)
+        {
+            var client = new MailMessage();
+            var smtp = new SmtpClient("smtp.gmail.com");
+            client.From = new MailAddress("telemedicina.grupo3@gmail.com");
+            client.To.Add(email);
+            client.Subject = "Alerta Glicemia";
+            client.Body = "Estimado Sr(a). " + nome + ",\n\nApós a sua recente atualização retificamos o alerta enviado anteriormente.\nValor de glicemia: " + valor_glicemia + ".\n\nCom os melhores cumprimentos Equipa Telemedicina";
+            smtp.Port = 587;
+            smtp.UseDefaultCredentials = false;
+            smtp.Credentials = new NetworkCredential("telemedicina.grupo3@gmail.com", "telegrupo3");
             smtp.EnableSsl = true;
 
             smtp.Send(client);

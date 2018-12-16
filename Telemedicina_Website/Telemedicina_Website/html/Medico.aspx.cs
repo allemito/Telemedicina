@@ -18,18 +18,19 @@ namespace Telemedicina_Website
         OracleDataReader dataReader;
         Registo registo = new Registo();
         string username;
-        int numero_alertas = 0;
 
         protected void Page_Load(object sender, EventArgs e)
         {
             comando.Connection = conexao;
             panelDoente.Visible = false;
+            panelDados.Visible = false;
             labelProcurar.Text = "";
-            if (IsPostBack)
+            
+            if(IsPostBack)
             {
-                if (ViewState["alertas"] != null)
+                if (ViewState["user"] != null)
                 {
-                    numero_alertas = (int)ViewState["alertas"];
+                    username = (string)ViewState["user"];
                 }
             }
         }
@@ -53,31 +54,31 @@ namespace Telemedicina_Website
                     TextBox_Nome.Text = Convert.ToString(comando.ExecuteScalar());
                     comando.CommandText = "SELECT ID_Doente FROM Doente WHERE Numero_Utente = '" + TextBox_Procurar.Text + "'";
                     username = Convert.ToString(comando.ExecuteScalar());
+                    ViewState["user"] = username;
                     comando.ExecuteNonQuery();
 
-                    comando.CommandText = "Select valor_glicemia, DATAHORA_ADD From DADOS_GLICEMIA Where ID_Doente = '"+username+"' and ROWNUM <= 7 order by DATAHORA_ADD desc";
+                    comando.CommandText = "Select Valor_Glicemia, DATAHORA_ADD From (Select valor_glicemia, DATAHORA_ADD From DADOS_GLICEMIA Where ID_Doente = '"+username+"' and ROWNUM <= 7 order by DATAHORA_ADD desc) order by DATAHORA_ADD asc";
                     dataReader = comando.ExecuteReader();
                     while (dataReader.Read())
                     {
-                        this.ChartGlicemia.Series["Glicemia"].Points.AddXY(dataReader["DataHora_ADD"].ToString(), dataReader["Valor_Glicemia"].ToString());
+                        ChartGlicemia.Series["Glicemia"].Points.AddXY(dataReader["DataHora_ADD"].ToString(), dataReader["Valor_Glicemia"].ToString());
                     }
 
                     //Verificar valores acima do normal
-                    DateTime SeteDiasAntes = DateTime.Now;
-                    SeteDiasAntes.AddDays(-7);
+                    DateTime SeteDiasAntes = DateTime.Today.AddDays(-7);
                     string dataQuery = SeteDiasAntes.ToString("yyyy/MM/dd");
+                    int numero_alertas = 0;
                     comando.CommandText = "Select Valor_Glicemia From DADOS_GLICEMIA Where ID_Doente = '"+username+"' and DATAHORA_ADD >= '"+dataQuery+"'";
                     dataReader = comando.ExecuteReader();
                     while (dataReader.Read())
                     {
                         if (Convert.ToUInt32(dataReader["Valor_Glicemia"]) > 160 || Convert.ToUInt32(dataReader["Valor_Glicemia"]) < 80)
                         {
-                            numero_alertas = numero_alertas + 1;
-                            ViewState["alertas"] = numero_alertas;
+                            numero_alertas++; 
                         }         
                     }
                     conexao.Close();
-                    label_alertas.Text = numero_alertas.ToString();
+                    label_alertas.Text = "Atenção: Existem " + numero_alertas + " valor(es) nos últimos 7 dias que merece atenção médica!";
                 }
                 else
                 {
@@ -88,6 +89,68 @@ namespace Telemedicina_Website
             {
                 labelProcurar.Text = "Introduza um número válido!";
             }
+        }
+
+        protected void ButtonVer_Total_Click(object sender, EventArgs e)
+        {
+            panelDoente.Visible = false;
+            panelDados.Visible = true;
+
+            conexao.Open();
+            comando.CommandText = "SELECT Nome_Doente FROM Doente WHERE Numero_Utente = '" + TextBox_Procurar.Text + "'";
+            TextBoxnome.Text = Convert.ToString(comando.ExecuteScalar());
+
+            DataSet data = new DataSet();
+            comando.CommandText = "Select Datahora_add Data_Hora, Valor_Glicemia Glicemia, Insulina, Unidades_Administradas, Observacoes from Dados_Glicemia where Id_Doente = '"+username+"' order by DataHora_Add asc";
+            comando.CommandType = CommandType.Text;
+
+            using (OracleDataAdapter dataAdapter = new OracleDataAdapter())
+            {
+                dataAdapter.SelectCommand = comando;
+                dataAdapter.Fill(data);
+
+                GridViewGlicemia.DataSource = data;
+                GridViewGlicemia.DataBind();
+            }
+            conexao.Close();
+
+      
+        }
+
+        protected void ButtonParaTras_Click(object sender, EventArgs e)
+        {
+            panelDoente.Visible = true;
+            panelDados.Visible = false;
+
+            conexao.Open();
+            comando.CommandText = "SELECT Nome_Doente FROM Doente WHERE Numero_Utente = '" + TextBox_Procurar.Text + "'";
+            TextBox_Nome.Text = Convert.ToString(comando.ExecuteScalar());
+            //comando.CommandText = "SELECT ID_Doente FROM Doente WHERE Numero_Utente = '" + TextBox_Procurar.Text + "'";
+            //username = Convert.ToString(comando.ExecuteScalar());
+            comando.ExecuteNonQuery();
+
+            comando.CommandText = "Select Valor_Glicemia, DATAHORA_ADD From (Select valor_glicemia, DATAHORA_ADD From DADOS_GLICEMIA Where ID_Doente = '" + username + "' and ROWNUM <= 7 order by DATAHORA_ADD desc) order by DATAHORA_ADD asc";
+            dataReader = comando.ExecuteReader();
+            while (dataReader.Read())
+            {
+                ChartGlicemia.Series["Glicemia"].Points.AddXY(dataReader["DataHora_ADD"].ToString(), dataReader["Valor_Glicemia"].ToString());
+            }
+
+            //Verificar valores acima do normal
+            DateTime SeteDiasAntes = DateTime.Today.AddDays(-7);
+            string dataQuery = SeteDiasAntes.ToString("yyyy/MM/dd");
+            int numero_alertas = 0;
+            comando.CommandText = "Select Valor_Glicemia From DADOS_GLICEMIA Where ID_Doente = '" + username + "' and DATAHORA_ADD >= '" + dataQuery + "'";
+            dataReader = comando.ExecuteReader();
+            while (dataReader.Read())
+            {
+                if (Convert.ToUInt32(dataReader["Valor_Glicemia"]) > 160 || Convert.ToUInt32(dataReader["Valor_Glicemia"]) < 80)
+                {
+                    numero_alertas++;
+                }
+            }
+            conexao.Close();
+            label_alertas.Text = "Atenção: Existem " + numero_alertas + " valor(es) nos últimos 7 dias que merece atenção médica!";
         }
     }
 }

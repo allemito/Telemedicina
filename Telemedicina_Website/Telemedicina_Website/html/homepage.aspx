@@ -16,7 +16,10 @@
             <asp:Button class="button" ID="btn_faq" runat="server" Text="F.A.Q" PostBackUrl="~/html/Faq.aspx" UseSubmitBehavior="False" />
             <asp:Button class="button" ID="btn_contactos" runat="server" Text="Contactos" PostBackUrl="~/html/Contactos.aspx" UseSubmitBehavior="False" />
         </ul>
-        <img src="../image/diabetes.jpg" class="background-image" />
+        <img src="../image/diabetes.jpg" class="background-image" style="padding-top: 100px" />
+        <h1 style= "text-align:center">TELEMEDICINA</h1>
+        <h2 style= "text-align:center">Monitorização de Diabetes</h2>
+        <h3 style= "text-align:center">Grupo III</h3>
     </form>
 </body>
 </html>
